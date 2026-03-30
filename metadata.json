@@ -1,0 +1,5 @@
+{
+  "name": "NovelFetcher",
+  "description": "A web utility to scrape and compile web novels using CORS proxies.",
+  "requestFramePermissions": []
+}

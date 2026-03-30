@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "NovelFetcher AI",
+  "version": "1.0",
+  "description": "Scrape and analyze web novels from the current tab.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "NovelFetcher"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}

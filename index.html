@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" class="dark h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NovelFetcher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              background: '#0f172a', // slate-900
+              surface: '#1e293b',    // slate-800
+              primary: '#6366f1',    // indigo-500
+              secondary: '#10b981',  // emerald-500
+              accent: '#8b5cf6',     // violet-500
+            },
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Ensure popup has fixed dimensions when running as extension */
+      body {
+        width: 450px;
+        height: 600px;
+        overflow: hidden;
+      }
+      /* Custom Scrollbar for dark theme */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0f172a; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #334155; 
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #475569; 
+      }
+
+      /* Reset for full screen if opened as a regular page */
+      @media screen and (min-width: 800px) {
+        body {
+          width: 100%;
+          height: 100vh;
+        }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-background text-slate-200 h-full font-sans antialiased selection:bg-primary selection:text-white">
+    <div id="root" class="h-full flex flex-col"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
