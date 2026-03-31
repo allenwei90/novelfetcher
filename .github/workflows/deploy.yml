@@ -1,0 +1,59 @@
+name: Deploy to GitHub Pages
+
+on:
+  # 當有程式碼推送到 main 分支時，自動觸發此腳本
+  # (如果您的預設分支叫 master，請把 main 改成 master)
+  push:
+    branches: ["main"]
+
+# 設定 GitHub Token 的權限，讓機器人有權限寫入 Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 確保同時間只有一個部署任務在執行
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # 第一階段：打包 (Build)
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      # 💡 貼心小步驟：自動產生 404.html 解決 React SPA 重新整理會報錯的問題
+      - name: Copy index.html to 404.html
+        run: cp dist/index.html dist/404.html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' # Vite 打包後的資料夾名稱
+
+  # 第二階段：部署 (Deploy)
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
