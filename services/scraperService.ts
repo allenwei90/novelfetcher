@@ -8,6 +8,7 @@ declare const chrome: any;
  * 2. allorigins.win: Good fallback.
  */
 const PROXY_GENERATORS = [
+  (url: string) => `https://impl-cors-proxy.allenwei90.workers.dev/?url=${encodeURIComponent(url)}`,
   (url: string) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
   (url: string) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
   (url: string) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
@@ -15,6 +16,7 @@ const PROXY_GENERATORS = [
   // Additional fallbacks
   (url: string) => `https://cors-anywhere.herokuapp.com/${url}`,
   (url: string) => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}` // JSON wrapped fallback
+  
 ];
 
 /**
